@@ -1,0 +1,7 @@
+-- requete_3 Liste des 10 départements où le prix du mètre carré est le plus élevé.
+SELECT adresse.code_departement,
+avg ((transaction.valeur_fonciere) / (bien_immobilier.surface_carrez_du_1er_lot)) AS prix_mettre_carre
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+GROUP BY code_departement order by prix_mettre_carre desc
+limit 10
