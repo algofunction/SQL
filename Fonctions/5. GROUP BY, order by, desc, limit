@@ -1,0 +1,10 @@
+-- 5. Liste des 10 appartements les plus chers avec le département et le nombre de mètres carrés.
+SELECT 
+adresse.id_adresse,
+adresse.code_departement,
+transaction.valeur_fonciere,
+bien_immobilier.surface_carrez_du_1er_lot
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+where bien_immobilier.type_local ='Appartement' GROUP BY transaction.valeur_fonciere order by transaction.valeur_fonciere desc
+limit 10
