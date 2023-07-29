@@ -1,0 +1,3 @@
+-- requete_1 Nombre total d’appartements vendus au 1er semestre 2020.
+SELECT count(distinct (bien_immobilier.id_bien)) FROM bien_immobilier JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+where bien_immobilier.type_local ='Appartement'
