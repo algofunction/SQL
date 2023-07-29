@@ -1,0 +1,8 @@
+-- requete_2 Proportion des ventes d’appartements par le nombre de pièces des appartements.
+SELECT nombre_pieces_principales, 
+		count(nombre_pieces_principales) AS VENTES, 
+        count(nombre_pieces_principales)*100 / (SELECT count(*) from bien_immobilier JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+where bien_immobilier.type_local ='Appartement') AS Proportion 
+FROM bien_immobilier JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+where bien_immobilier.type_local ='Appartement' 
+GROUP BY nombre_pieces_principales order by nombre_pieces_principales ASC
