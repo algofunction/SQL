@@ -1,0 +1,16 @@
+/*
+Titre : Créez et utilisez une base de données immobilière avec SQL
+
+[Evaluation] Présentation des livrables :
+- Vous expliquerez la démarche de la création de la base de données.
+- Vous présenterez la base de données avec les données importées directement dans l'outil SGBD en live (en réalisant une démonstration, 
+sans vous appuyer sur des captures d’écran).
+- Vous répondrez aux analyses demandées par le Directeur Général.
+
+Compétences évaluées :
+- Mettre à jour un catalogue de données
+- Créer des tables dans une base de données
+- Effectuer des requêtes SQL pour répondre à une problématique métier
+- Créer le schéma d'une base de données
+- Charger des données dans une base de données
+*/
