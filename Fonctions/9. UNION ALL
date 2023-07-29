@@ -1,0 +1,41 @@
+-- 9. Les moyennes de valeurs foncières pour le top 3 des communes des départements 6, 13, 33, 59 et 69
+
+(SELECT adresse.commune, adresse.code_departement, avg(transaction.valeur_fonciere) AS moyenne_val_fonc
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = 
+bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+WHERE transaction.valeur_fonciere!= 0 AND adresse.code_departement in (6)
+GROUP BY adresse.commune
+ORDER BY adresse.code_departement desc, moyenne_val_fonc DESC limit 3)
+UNION ALL
+(SELECT adresse.commune, adresse.code_departement, avg(transaction.valeur_fonciere) AS moyenne_val_fonc
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = 
+bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+WHERE transaction.valeur_fonciere!= 0 AND adresse.code_departement in (13)
+GROUP BY adresse.commune
+ORDER BY adresse.code_departement desc, moyenne_val_fonc DESC limit 3)
+UNION ALL
+(SELECT adresse.commune, adresse.code_departement, avg(transaction.valeur_fonciere) AS moyenne_val_fonc
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = 
+bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+WHERE transaction.valeur_fonciere!= 0 AND adresse.code_departement in (33)
+GROUP BY adresse.commune
+ORDER BY adresse.code_departement desc, moyenne_val_fonc DESC limit 3)
+UNION ALL
+(SELECT adresse.commune, adresse.code_departement, avg(transaction.valeur_fonciere) AS moyenne_val_fonc
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = 
+bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+WHERE transaction.valeur_fonciere!= 0 AND adresse.code_departement in (59)
+GROUP BY adresse.commune
+ORDER BY adresse.code_departement desc, moyenne_val_fonc DESC limit 3)
+UNION ALL
+(SELECT adresse.commune, adresse.code_departement, avg(transaction.valeur_fonciere) AS moyenne_val_fonc
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = 
+bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+WHERE transaction.valeur_fonciere!= 0 AND adresse.code_departement in (69)
+GROUP BY adresse.commune
+ORDER BY adresse.code_departement desc, moyenne_val_fonc DESC limit 3)
