@@ -1,0 +1,50 @@
+-- 7. Liste des communes où le nombre de ventes a augmenté d'au moins 20% entre le premier et le second trimestre de 2020
+with
+ventet1 AS (
+select adresse.commune, count(transaction.date_mutation) AS nb_ventes_t1
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+where transaction.date_mutation<'2020-04-01' and transaction.valeur_fonciere is not null
+group by adresse.commune),
+
+ventet2 AS (
+select adresse.commune, count(transaction.date_mutation) AS nb_ventes_t2
+from adresse inner JOIN bien_immobilier ON adresse.id_adresse = bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+where date_mutation>='2020-04-01' and transaction.valeur_fonciere is not null
+group by adresse.commune)
+
+select ventet1.commune, ventet1.nb_ventes_t1, ventet2.nb_ventes_t2, (((nb_ventes_t2-nb_ventes_t1)*100/(nb_ventes_t1))) AS tx_evo_sup20_t1_t2
+from ventet1 join ventet2 on ventet1.commune = ventet2.commune
+having tx_evo_sup20_t1_t2>=20
+order by tx_evo_sup20_t1_t2 desc;
+
+/*
+Explication requête 7 : 
+-On commence par une sous requête : 
+ventet1
+avec un tableau 
+où on a en colonnes (select) :
+le libellé de la commune
+le nombre de transactions
+
+chaque ligne (group by) correspond à une commune
+Il y a la restriction que la date de transaction doit être appliquée uniquement au premier trimestre 
+
+-on fait de même avec ventet2 
+il correspond au 2nd trimestre
+
+
+-On regroupe ces 2 sous-requêtes dans un tableau
+où on a en colonnes (select) :
+le libellé de la commune, 
+le Nombre de ventes au premier trimestre
+le Nombre de ventes au second trimestre
+Le taux d'évolution entre les ventes du trimestre 1 et du trimestre 2
+
+Pour réaliser ce tableau on applique une jointure entre les sous-requêtes ventet1 et ventet2, 
+avec comme élément commun pour la jointure : la commune (clé primaire)
+
+Nous restreignons ensuite notre taux d'évolution pour qu'il soit supérieur ou égal à 20 grâce à un having 
+(car appliquer ce paramètre sur un where renvoit une erreur)
+*/
