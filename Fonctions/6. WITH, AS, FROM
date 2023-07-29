@@ -1,0 +1,15 @@
+-- 6. Taux d’évolution du nombre de ventes entre le premier et le second trimestre de 2020.
+WITH
+ventet1 AS (
+		SELECT
+ 			COUNT(date_mutation) AS nb_ventes_t1
+		FROM transaction
+	    where date_mutation<'2020-04-01' and valeur_fonciere is not null),
+ventet2 AS (
+		 SELECT 
+  		  	COUNT(date_mutation) AS nb_ventes_t2
+		FROM transaction
+		where date_mutation>='2020-04-01' and valeur_fonciere is not null)
+		
+SELECT ((nb_ventes_t2 - nb_ventes_t1) * 100 / nb_ventes_t1) AS tx_evo_entre_t1_t2
+FROM ventet1, ventet2;
