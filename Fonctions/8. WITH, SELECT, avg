@@ -1,0 +1,14 @@
+-- 8. Différence en pourcentage du prix au mètre carré entre un appartement de 2 pièces et un appartement de 3 pièces.
+WITH 
+2Pieces AS (
+	SELECT avg (transaction.valeur_fonciere / bien_immobilier.surface_carrez_du_1er_lot) AS prixm2_2Pieces  
+	from adresse inner JOIN bien_immobilier ON adresse.id_adresse = bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+	WHERE bien_immobilier.type_local ='Appartement' AND bien_immobilier.nombre_pieces_principales = 2),
+    3Pieces AS (
+	SELECT avg (transaction.valeur_fonciere / bien_immobilier.surface_carrez_du_1er_lot) AS prixm2_3Pieces  
+	from adresse inner JOIN bien_immobilier ON adresse.id_adresse = bien_immobilier.id_adresse
+inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
+	WHERE bien_immobilier.type_local = 'Appartement' AND bien_immobilier.nombre_pieces_principales = 3)	
+ SELECT (((prixm2_3Pieces - prixm2_2Pieces) / prixm2_2Pieces) *100) AS diff_pourcent_prixM2_Appt_3pieces_et_2pieces
+ FROM 2Pieces, 3Pieces;
