@@ -39,3 +39,4 @@ inner JOIN transaction ON bien_immobilier.id_bien = transaction.id_bien
 WHERE transaction.valeur_fonciere!= 0 AND adresse.code_departement in (69)
 GROUP BY adresse.commune
 ORDER BY adresse.code_departement desc, moyenne_val_fonc DESC limit 3)
+
